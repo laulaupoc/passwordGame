@@ -4,13 +4,16 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 500;
 
+const initial_speed_coef = 1.2;
 
 let score = 0;
 let gameFrame = 0;
+var pause = false;
 ctx.font = '50px Georgia';
 
-let speedCoeficient = 1.2 // Greicio koeficientas regulioja kaip greit kyla burbuliukai ir kaip greit jie atsiranda
-const modalTriggerButtons = document.querySelectorAll("[data-modal-target]");
+let speedCoeficient = initial_speed_coef; // Greicio koeficientas regulioja kaip greit kyla burbuliukai ir kaip greit jie atsiranda
+/*modal boxas game over*/
+
 const modals = document.querySelectorAll(".modal");
 const modalCloseButtons = document.querySelectorAll(".modal-close");
 
@@ -18,11 +21,11 @@ const modalCloseButtons = document.querySelectorAll(".modal-close");
 modalCloseButtons.forEach(elem => {
     elem.addEventListener("click", event => toggleModal(event.currentTarget.closest(".modal").id));
 });
-modals.forEach(elem => {
-    elem.addEventListener("click", event => {
-        if (event.currentTarget === event.target) toggleModal(event.currentTarget.id);
-    });
-});
+// modals.forEach(elem => {
+//     elem.addEventListener("click", event => {
+//         if (event.currentTarget === event.target) toggleModal(event.currentTarget.id);
+//     });
+// });/*cia kad nedingtu kai spaudziu*/
 
 // Close Modal with "Esc"...
 document.addEventListener("keydown", event => {
@@ -47,6 +50,8 @@ function toggleModal(modalId) {
         modal.classList.add("modal-show");
     }
 }
+
+
 
 // mouse interactivity
 let canvasPosition = canvas.getBoundingClientRect();
@@ -87,8 +92,6 @@ badPasswordList = [{ password: "Password", explanation: "Do not use dictionary w
     { password: "aaa8888", explanation: "Do not use repeating characters" },
     { password: "mylovelydog", explanation: "Do not use dictionary words" }
 ];
-
-
 
 
 // player
@@ -235,24 +238,35 @@ function handleBubbles() {
                     if (!deletedBubbles[k].isFriendly()) {
                         evilBuble = deletedBubbles[k];
                         pause = true;
-                        setModalValues(evilBuble.password, evilBuble.explanation)
+                        setModalValues(evilBuble.password, evilBuble.explanation);
                         toggleModal("modal1");
                     } //kai blogi yra  game over
                 }
-
             }
-
         }
-
     }
-
 }
-
+/*game o ver langas*/
 const setModalValues = (password, explanation) => {
-
+    document.getElementById("password").innerHTML = password;
+    document.getElementById("explanation").innerHTML = explanation;
+    document.getElementById("score").innerHTML = score;
 }
 
-var pause = false;
+
+const resetGame = () => {
+    score = 0;
+    gameFrame = 0;
+    bubblesArray.splice(0, bubblesArray.length);
+    speedCoeficient = initial_speed_coef;
+    /*cia kad kai nusiresetina butu vel nuo 0 ir duotu tasku pagal greiti */
+    pause = false;
+    toggleModal("modal1"); /*toggle tai kai buna uzdetas ir vel rasai nusiima*/
+    animate();
+}
+document.getElementById("resetButton").onclick = () => resetGame();
+/*kai clikini buttona issauke reset game funkcija*/
+
 //animation loop
 function animate() {
     if (gameFrame % 50 == 0) {

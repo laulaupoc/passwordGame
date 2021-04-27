@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 500;
 
-const initial_speed_coef = 1.2;
+const initial_speed_coef = 1.1;
 
 let score = 0;
 let gameFrame = 0;
@@ -12,6 +12,8 @@ var pause = false;
 ctx.font = '50px Georgia';
 
 let speedCoeficient = initial_speed_coef; // Greicio koeficientas regulioja kaip greit kyla burbuliukai ir kaip greit jie atsiranda
+
+
 /*modal boxas game over*/
 
 const modals = document.querySelectorAll(".modal");
@@ -21,18 +23,7 @@ const modalCloseButtons = document.querySelectorAll(".modal-close");
 modalCloseButtons.forEach(elem => {
     elem.addEventListener("click", event => toggleModal(event.currentTarget.closest(".modal").id));
 });
-// modals.forEach(elem => {
-//     elem.addEventListener("click", event => {
-//         if (event.currentTarget === event.target) toggleModal(event.currentTarget.id);
-//     });
-// });/*cia kad nedingtu kai spaudziu*/
 
-// Close Modal with "Esc"...
-document.addEventListener("keydown", event => {
-    if (event.keyCode === 27 && document.querySelector(".modal.modal-show")) {
-        toggleModal(document.querySelector(".modal.modal-show").id);
-    }
-});
 
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -98,7 +89,7 @@ badPasswordList = [{ password: "Password", explanation: "Do not use dictionary w
 class Player {
     constructor() {
         this.x = canvas.width;
-        this.y = canvas.height / 5; //kad per viduri butu rutuliukas pakeiciau i 5 o siaip buvo 2
+        this.y = canvas.height / 7; //kad per viduri butu rutuliukas pakeiciau i 5 o siaip buvo 2
         this.radius = 30;
         this.angle = 0;
         this.frameX = 0;
@@ -110,20 +101,16 @@ class Player {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         if (mouse.y != this.y) {
-            this.x -= dx / 30;
+            this.x -= dx / 20;
         }
         if (mouse.y != this.y) {
-            this.y -= dy / 30;
+            this.y -= dy / 20;
         }
     }
     draw() {
         if (mouse.click) {
-            //         /*ctx.lineWidth = 0.2;
-            //         ctx.beginPath(); */
+
             ctx.moveTo(this.x, mouse.y);
-            //ctx.lineTo(mouse.x, mouse.y);
-            //         /* line */
-            //         ctx.stroke();
         }
 
         ctx.fillStyle = 'red';
@@ -252,6 +239,7 @@ const setModalValues = (password, explanation) => {
     document.getElementById("explanation").innerHTML = explanation;
     document.getElementById("score").innerHTML = score;
 }
+
 
 
 const resetGame = () => {

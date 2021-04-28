@@ -12,7 +12,7 @@ var pause = false;
 ctx.font = '50px Georgia';
 
 let speedCoeficient = initial_speed_coef; // Greicio koeficientas regulioja kaip greit kyla burbuliukai ir kaip greit jie atsiranda
-
+let playerName = "unknown";
 
 /*modal boxas game over*/
 
@@ -225,6 +225,7 @@ function handleBubbles() {
                     if (!deletedBubbles[k].isFriendly()) {
                         evilBuble = deletedBubbles[k];
                         pause = true;
+                        submitPlayerScore();
                         setModalValues(evilBuble.password, evilBuble.explanation);
                         toggleModal("modal1");
                     } //kai blogi yra  game over
@@ -240,6 +241,36 @@ const setModalValues = (password, explanation) => {
     document.getElementById("score").innerHTML = score;
 }
 
+newHighScoreElement = (text) => {
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(text));
+    return li;
+}
+
+submitPlayerScore = () => {
+    const theUrl = "https://passpop-b569.restdb.io/rest/score";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", theUrl); // false for synchronous request
+    xmlHttp.setRequestHeader("x-apikey", "6089d04528bf9b609975a81b")
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request = JSON.stringify({ "name": playerName, "score": score });
+    xmlHttp.send(request);
+    console.log(request);
+}
+
+fetchHighScore = () => {
+    const theUrl = "https://passpop-b569.restdb.io/rest/score";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.setRequestHeader("x-apikey", "6089d04528bf9b609975a81b")
+    xmlHttp.send(null);
+    highScores = JSON.parse(xmlHttp.responseText);
+    highScores = highScores.sort((a, b) => b.score - a.score)
+    var ul = document.getElementById("high-score");
+    for (i = 0; i < 5; i++) {
+        ul.appendChild(newHighScoreElement(highScores[i].name + " : " + highScores[i].score))
+    }
+}
 
 
 const resetGame = () => {
@@ -255,6 +286,12 @@ const resetGame = () => {
 document.getElementById("resetButton").onclick = () => resetGame();
 /*kai clikini buttona issauke reset game funkcija*/
 
+const startGame = () => {
+    playerName = document.getElementById("name-input").value;
+    toggleModal("modal2");
+    animate();
+}
+document.getElementById("startButton").onclick = () => startGame();
 //animation loop
 function animate() {
     if (gameFrame % 50 == 0) {
@@ -271,4 +308,5 @@ function animate() {
     if (pause) return; // kai priliecia zalius kad sustotu
     requestAnimationFrame(animate);
 }
-animate();
+toggleModal("modal2");
+fetchHighScore();

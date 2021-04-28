@@ -13,21 +13,34 @@
 </head>
 
 <body>
-
-    <canvas id="canvas1"></canvas>
-    <div class="modal" id="modal1">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h1 class="hacked">You got hacked!</h1>
-            <h3>Your high score:</h3>
-            <h3 id="score"></h3>
-            <h3>You chose:</h3>
-            <h3 id="password"></h3>
-            <p id="explanation"></p>
-            <button id="resetButton" onclick="resetGame">Play again</button>
+    <div>
+        <canvas id="canvas1"></canvas>
+        <div class="modal" id="modal1">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h1 class="hacked">You got hacked!</h1>
+                <h3>Your high score:</h3>
+                <h3 id="score"></h3>
+                <h3>You chose:</h3>
+                <h3 id="password"></h3>
+                <p id="explanation"></p>
+                <button id="resetButton">Play again</button>
+            </div>
         </div>
-    </div>
+        <div class="modal" id="modal2">
+            <div class="modal-content">
+                <h1>test</h1>
+                <input type="text" id="name-input">
+                <button id="startButton" onclick="resetGame">Start</button>
+            </div>
+        </div>
+        <div></div>
+        <h2>high scores: </h2>
+        <ul id="high-score">
 
+        </ul>
+    </div>
+    </div>
     <script src=" js/powerPOP.js " defer></script>
 </body>
 

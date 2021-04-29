@@ -255,7 +255,6 @@ submitPlayerScore = () => {
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request = JSON.stringify({ "name": playerName, "score": score });
     xmlHttp.send(request);
-    console.log(request);
 }
 
 fetchHighScore = () => {

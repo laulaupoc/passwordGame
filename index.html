@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>powerPOP</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href='https://fonts.googleapis.com/css?family=Arvo:700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway:300,100' rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <a href="https://icons8.com/icon/123744/question-mark"></a>
 
 </head>
 
@@ -32,19 +35,34 @@
                 <div class="modal-content-2">
                     <div class="spline"><iframe src='https://my.spline.design/untitled-a731914d90f6dbe080cc2c22dfa2cc6d/' frameborder='0' width='100%' height='100%'></iframe></div>
                     <div class="content-on-top">
-                        <h1>test</h1>
+                        <h1>Username</h1>
                         <input type="text" id="name-input">
-                        <button id="startButton" onclick="resetGame">Start</button></div>
+                        <button id="startButton" onclick="resetGame">Start</button>
+                    </div>
+                    <div class="help-on-top">
+                        <button id="how-to" title="How to play: 
+                        AVOID bad passwords bubbles! 
+                        YOUR BUBBLE moves by clicking
+                        RIGHT click of the mouse!
+                        Goodluck!">
+                        <img src="https://img.icons8.com/nolan/64/question-mark.png"/></button>
+                    </div>
+
                 </div>
+
             </div>
         </div>
-    </div>
-    <div>
-        <h2>high scores: </h2>
-        <ul id="high-score">
-        </ul>
-    </div>
-    </div>
+
+
+        <div>
+
+            <h2>TOP 5 high scores: </h2>
+            <section class="moving">
+                <div ul id="high-score">
+                    </ul>
+                </div>
+            </section>
+        </div>
     </div>
     <script src=" js/powerPOP.js " defer></script>
 </body>

@@ -84,7 +84,6 @@ badPasswordList = [{ password: "Password", explanation: "Do not use dictionary w
     { password: "mylovelydog", explanation: "Do not use dictionary words" }
 ];
 
-
 // player
 class Player {
     constructor() {
@@ -113,7 +112,7 @@ class Player {
             ctx.moveTo(this.x, mouse.y);
         }
 
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = 'blue';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         /*cirkle for a player*/
@@ -148,14 +147,14 @@ class Bubble {
 
     }
     draw() {
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'beige';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
         ctx.stroke();
-        ctx.fillStyle = "white"; //text in the bubble
-        ctx.font = "18px Georgia"; //text in the bubble
+        ctx.fillStyle = "black"; //text in the bubble
+        ctx.font = "16px Montserrat, sans-serif"; //text in the bubble
         ctx.fillText(this.password, this.x - (this.password.length * 4.8), this.y); //text in the bubble
     }
 
@@ -181,14 +180,14 @@ class BadBubble {
         this.distance = Math.round(Math.sqrt(dx * dx + dy * dy)); //to get collision warning when circkles overlaps
     }
     draw() {
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'beige';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
         ctx.stroke();
-        ctx.fillStyle = "white"; //text in the bubble
-        ctx.font = "18px Georgia"; //text in the bubble
+        ctx.fillStyle = "black"; //text in the bubble
+        ctx.font = "16px Montserrat, sans-serif"; //text in the bubble
         ctx.fillText(this.password, this.x - (this.password.length * 4), this.y); //text in the bubble
     }
 
@@ -300,8 +299,8 @@ function animate() {
     handleBubbles();
     player.update();
     player.draw();
-    ctx.fillStyle = 'red'; //spalva score
-    ctx.font = "28px Georgia";
+    ctx.fillStyle = 'blue'; //spalva score
+    ctx.font = "28px Zen Dots";
     ctx.fillText('Score:' + score, 40, 40); //vieta kur score cia galiu dadet ir speeda
     gameFrame++;
     if (pause) return; // kai priliecia zalius kad sustotu

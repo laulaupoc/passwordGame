@@ -14,7 +14,7 @@ ctx.font = '50px Georgia';
 let speedCoeficient = initial_speed_coef; // Greicio koeficientas regulioja kaip greit kyla burbuliukai ir kaip greit jie atsiranda
 let playerName = "unknown";
 
-/*modal boxas game over*/
+/*modal box game over*/
 
 const modals = document.querySelectorAll(".modal");
 const modalCloseButtons = document.querySelectorAll(".modal-close");
@@ -160,7 +160,7 @@ class Bubble {
 
     isFriendly = () => true;
 }
-//blogieji kamuoliukai
+//bad bubbles
 class BadBubble {
     constructor(password, explanation) {
         this.x = Math.random() * canvas.width;
@@ -227,13 +227,13 @@ function handleBubbles() {
                         submitPlayerScore();
                         setModalValues(evilBuble.password, evilBuble.explanation);
                         toggleModal("modal1");
-                    } //kai blogi yra  game over
+                    } //when it touches bad one its game over
                 }
             }
         }
     }
 }
-/*game o ver langas*/
+/*game over screen*/
 const setModalValues = (password, explanation) => {
     document.getElementById("password").innerHTML = password;
     document.getElementById("explanation").innerHTML = explanation;
@@ -276,13 +276,13 @@ const resetGame = () => {
     gameFrame = 0;
     bubblesArray.splice(0, bubblesArray.length);
     speedCoeficient = initial_speed_coef;
-    /*cia kad kai nusiresetina butu vel nuo 0 ir duotu tasku pagal greiti */
+    /*0 scores from the begining when you lost */
     pause = false;
     toggleModal("modal1"); /*toggle tai kai buna uzdetas ir vel rasai nusiima*/
     animate();
 }
 document.getElementById("resetButton").onclick = () => resetGame();
-/*kai clikini buttona issauke reset game funkcija*/
+/*reset function when you click play again button*/
 
 const startGame = () => {
     playerName = document.getElementById("name-input").value;
@@ -293,17 +293,17 @@ document.getElementById("startButton").onclick = () => startGame();
 //animation loop
 function animate() {
     if (gameFrame % 50 == 0) {
-        speedCoeficient += 0.1; // kaip greit zaidimas greiteja
+        speedCoeficient += 0.1; // speed of bad bubbles
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleBubbles();
     player.update();
     player.draw();
-    ctx.fillStyle = 'blue'; //spalva score
+    ctx.fillStyle = 'blue'; //color score
     ctx.font = "28px Zen Dots";
-    ctx.fillText('Score:' + score, 40, 40); //vieta kur score cia galiu dadet ir speeda
+    ctx.fillText('Score:' + score, 40, 40); //place for the score
     gameFrame++;
-    if (pause) return; // kai priliecia zalius kad sustotu
+    if (pause) return; // stop when it touches bad
     requestAnimationFrame(animate);
 }
 toggleModal("modal2");

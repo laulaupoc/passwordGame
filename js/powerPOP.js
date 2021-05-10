@@ -11,7 +11,7 @@ let gameFrame = 0;
 var pause = false;
 ctx.font = '50px Georgia';
 
-let speedCoeficient = initial_speed_coef; // Greicio koeficientas regulioja kaip greit kyla burbuliukai ir kaip greit jie atsiranda
+let speedCoeficient = initial_speed_coef; //speed
 let playerName = "unknown";
 
 /*modal box game over*/
@@ -64,7 +64,7 @@ canvas.addEventListener('mouseup', function() {
     mouse.click = false;
 })
 
-goodPasswordList = ["J6i^V6iK",
+goodPasswordList = ["J6i^V6iK!9",
     "NyK1r542*Z",
     "9fq7yb&U!u",
     "l40h6#Wu$U",
@@ -73,15 +73,27 @@ goodPasswordList = ["J6i^V6iK",
     "X4pWg6#@ae",
     "59&ssuw#%Kt",
     "#aIBW5@@l8",
-    "4S#RvEb7%w#"
+    "4S#RvEb7%w#",
+    "c@b1eC4BL3",
+    "rAIn1NGct&DGS!",
+    "p@$$GO&n@w$ ",
+    "!2jelly22fi$h"
 ];
 
-badPasswordList = [{ password: "Password", explanation: "Do not use dictionary words" },
-    { password: "Laura123", explanation: "Do not use personal information" },
-    { password: "123456", explanation: "Do not use easy combinations" },
-    { password: "myprettykitty", explanation: "Do not use dictionary words" },
-    { password: "aaa8888", explanation: "Do not use repeating characters" },
-    { password: "mylovelydog", explanation: "Do not use dictionary words" }
+badPasswordList = [{ password: "password", explanation: "Do not use dictionary words." },
+    { password: "admin", explanation: "Do not use dictionary words and short words." },
+    { password: "Laura123", explanation: "Do not use personal information. A good password should have no relation to you. This makes guessing your password much easier for people who know you (or find you on social media). " },
+    { password: "123456", explanation: "Do not use easy and one type of symbols combinations." },
+    { password: "myprettykitty", explanation: "Do not use dictionary words and one type of symbols." },
+    { password: "aaa8888", explanation: "Do not use repeating characters." },
+    { password: "qwerty", explanation: "Do not use easy and highly known combinations." },
+    { password: "111111", explanation: "Do not use repeating characters." },
+    { password: "abc123", explanation: "Do not use easy and popular combinations." },
+    { password: "sunshine", explanation: "Do not use dictionary words." },
+    { password: "5555555", explanation: "Do not use repeating characters." },
+    { password: "omgpop1", explanation: "Do not use easy and popular combinations." },
+    { password: "march191094", explanation: "This password breaks the rules by starting with a standard dictionary word, use of personal information and it lacks special characters." }
+
 ];
 
 // player
@@ -132,12 +144,11 @@ class Bubble {
     constructor(password) {
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 100;
-        this.radius = 75; //juodu kamuoliuku dydis
-        this.speed = 0.5 * speedCoeficient + 1; //juodu kamuoliuku greitis
+        this.radius = 75; //size of the bubbles
+        this.speed = 0.5 * speedCoeficient + 1;
         this.distance;
         this.counted = false;
         this.password = password;
-        //this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2'; //if this condition is true play sound 1 if false play sound 2
     }
     update() {
         this.y -= this.speed;
@@ -165,11 +176,10 @@ class BadBubble {
     constructor(password, explanation) {
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 1;
-        this.radius = 60; //blogu kamuoliuku dydis
-        this.speed = 0.5 * speedCoeficient + 1; //zaliu kamuoliuku greitis
+        this.radius = 60; //ad bubbles size
+        this.speed = 0.5 * speedCoeficient + 1;
         this.distance;
         this.counted = false;
-        /*this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2'; */ //if this condition is true play sound 1 if false play sound 2
         this.password = password;
         this.explanation = explanation;
     }
@@ -186,8 +196,8 @@ class BadBubble {
         ctx.fill();
         ctx.closePath();
         ctx.stroke();
-        ctx.fillStyle = "black"; //text in the bubble
-        ctx.font = "16px Montserrat, sans-serif"; //text in the bubble
+        ctx.fillStyle = "black"; //text in the bubble color
+        ctx.font = "16px Montserrat, sans-serif"; //text in the bubble size
         ctx.fillText(this.password, this.x - (this.password.length * 4), this.y); //text in the bubble
     }
 
@@ -247,9 +257,9 @@ newHighScoreElement = (text) => {
 }
 
 submitPlayerScore = () => {
-    const theUrl = "https://passpop-b569.restdb.io/rest/score";
+    const theUrl = "https://passpop-b569.restdb.io/rest/score"; //to post highscores
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", theUrl); // false for synchronous request
+    xmlHttp.open("POST", theUrl);
     xmlHttp.setRequestHeader("x-apikey", "6089d04528bf9b609975a81b")
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request = JSON.stringify({ "name": playerName, "score": score });
@@ -257,9 +267,9 @@ submitPlayerScore = () => {
 }
 
 fetchHighScore = () => {
-    const theUrl = "https://passpop-b569.restdb.io/rest/score";
+    const theUrl = "https://passpop-b569.restdb.io/rest/score"; //to get higscores
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.open("GET", theUrl, false);
     xmlHttp.setRequestHeader("x-apikey", "6089d04528bf9b609975a81b")
     xmlHttp.send(null);
     highScores = JSON.parse(xmlHttp.responseText);
